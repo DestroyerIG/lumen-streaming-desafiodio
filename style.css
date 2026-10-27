@@ -1,0 +1,849 @@
+/* ==========================================================
+   Lumen · Desafio final da trilha de CSS (DIO)
+   Mobile First: o CSS base é para celular; os @media (min-width)
+   ampliam o layout em 768px (tablet) e 1024px (desktop).
+
+   Conceitos praticados: variáveis, Flexbox, Grid, responsividade,
+   pseudo-classes, pseudo-elementos, transformações 2D e 3D,
+   transições, animações e tratamento de campos inválidos.
+   ========================================================== */
+
+:root {
+  --bg: #0a0c14;
+  --surface: #121624;
+  --surface-2: #1a2033;
+  --line: #28304a;
+  --text: #f1f4fb;
+  --text-soft: #a7b0c8;
+  --aqua: #38e1c6;
+  --pink: #ff4f8b;
+  --accent-grad: linear-gradient(90deg, var(--aqua), var(--pink));
+  --error: #ff6b6b;
+  --ok: #38e1c6;
+
+  --space: clamp(16px, 4vw, 24px);
+  --radius: 16px;
+
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-padding-top: 72px;
+}
+
+body {
+  font-family: "Sora", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--pink);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 3px;
+}
+
+/* Barra de rolagem personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aqua);
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--space);
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  color: #07110f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn--small {
+  padding: 10px 20px;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 2px var(--line);
+}
+
+.btn--ghost:hover {
+  box-shadow: inset 0 0 0 2px var(--aqua);
+  filter: none;
+}
+
+/* ---------- Logo (o círculo com brilho é um pseudo-elemento) ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo__mark {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-grad);
+}
+
+.logo__mark::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.logo__name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* ---------- Menu ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(10, 12, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__bar {
+  position: relative;
+  min-height: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* O checkbox fica por cima do botão, invisível, mas focável e clicável */
+.menu-toggle {
+  position: absolute;
+  top: 10px;
+  right: var(--space);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.menu-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.menu-toggle:focus-visible + .menu-btn {
+  outline: 3px solid var(--aqua);
+}
+
+.menu-btn__line {
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+/* Quando marcado, as 3 linhas viram um "X" (transformação 2D) */
+.menu-toggle:checked + .menu-btn .menu-btn__line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle:checked + .menu-btn .menu-btn__line:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle:checked + .menu-btn .menu-btn__line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 16px;
+}
+
+.menu-toggle:checked ~ .nav {
+  display: flex;
+}
+
+.nav__link {
+  position: relative;
+  padding: 12px 8px;
+  color: var(--text-soft);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.nav__link:hover {
+  color: var(--text);
+}
+
+.nav .btn {
+  margin-top: 8px;
+}
+
+/* ---------- Cabeçalho com gradiente animado ---------- */
+.hero {
+  position: relative;
+  padding-block: 72px 96px;
+  background: linear-gradient(
+    120deg,
+    #0a0c14,
+    #1d1050,
+    #0b4a55,
+    #52103a,
+    #0a0c14
+  );
+  background-size: 300% 300%;
+  animation: fluxo 16s ease-in-out infinite;
+}
+
+/* Degradê no rodapé do hero para encontrar o fundo da página */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 80px;
+  background: linear-gradient(transparent, var(--bg));
+}
+
+@keyframes fluxo {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+
+.hero__title {
+  max-width: 14ch;
+  font-size: clamp(2.2rem, 9vw, 4.2rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.hero__lead {
+  max-width: 46ch;
+  color: #d3daea;
+  font-weight: 300;
+}
+
+.hero__actions {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ---------- Seções ---------- */
+.section {
+  padding-block: 40px;
+}
+
+.section__title {
+  font-size: clamp(1.5rem, 5vw, 2.1rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.section__lead {
+  margin: -8px 0 24px;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+
+/* ---------- Pôsteres (Grid + 3D ao passar o mouse) ---------- */
+.posters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  perspective: 1000px;
+}
+
+.poster {
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.poster__link {
+  position: relative;
+  height: 100%;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* Camada escura sob o texto, para garantir a leitura */
+.poster__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 35%, rgba(5, 7, 14, 0.85));
+}
+
+.poster__link > * {
+  position: relative;
+  z-index: 1;
+}
+
+.poster__tag {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.poster__title {
+  font-size: 1.05rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.poster__meta {
+  font-size: 0.72rem;
+  color: #d3daea;
+}
+
+.poster:hover,
+.poster:focus-within {
+  transform: translateY(-8px) rotateX(5deg) rotateY(-7deg) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.poster--1 { background: linear-gradient(160deg, #b45309, #1c1917 80%); }
+.poster--2 { background: linear-gradient(160deg, #0e7490, #0c1a2b 80%); }
+.poster--3 { background: linear-gradient(160deg, #be123c, #1a0b14 80%); }
+.poster--4 { background: linear-gradient(160deg, #3f6212, #0f1a0b 80%); }
+.poster--5 { background: linear-gradient(160deg, #6d28d9, #150d2b 80%); }
+.poster--6 { background: linear-gradient(160deg, #0f766e, #08191a 80%); }
+.poster--7 { background: linear-gradient(160deg, #c2410c, #1f0e08 80%); }
+.poster--8 { background: linear-gradient(160deg, #1d4ed8, #0a1230 80%); }
+
+/* ---------- Planos ---------- */
+.plans {
+  display: grid;
+  gap: 28px;
+  padding-top: 12px; /* espaço para a etiqueta do plano popular */
+}
+
+.plan {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.plan:hover {
+  transform: translateY(-8px);
+  border-color: var(--aqua);
+  box-shadow: 0 18px 36px rgba(56, 225, 198, 0.12);
+}
+
+.plan__name {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.plan__price {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.plan__price span {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-soft);
+}
+
+.plan__list {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+
+/* O "✓" de cada item é um pseudo-elemento */
+.plan__list li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: var(--aqua);
+  font-weight: 700;
+}
+
+.plan--popular {
+  background: var(--surface-2);
+  border-color: var(--pink);
+}
+
+.plan--popular::before {
+  content: "Mais escolhido";
+  position: absolute;
+  top: -13px;
+  left: 24px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  color: #07110f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  animation: brilho 2.4s ease-in-out infinite;
+}
+
+@keyframes brilho {
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 79, 139, 0.25);
+  }
+}
+
+/* ---------- Rodapé ---------- */
+.footer {
+  margin-top: 40px;
+  padding-block: 40px;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 16px;
+}
+
+.footer__brand {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.footer__note {
+  max-width: 44ch;
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.footer__col {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.footer__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.footer__col a {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: color 0.2s;
+}
+
+.footer__col a:hover {
+  color: var(--text);
+}
+
+/* ==========================================================
+   Página de login
+   ========================================================== */
+.login {
+  min-height: calc(100vh - 65px);
+  display: grid;
+  place-items: center;
+  padding: 32px var(--space);
+  background:
+    radial-gradient(60% 50% at 80% 0%, rgba(255, 79, 139, 0.18), transparent),
+    radial-gradient(60% 50% at 10% 100%, rgba(56, 225, 198, 0.14), transparent);
+}
+
+.form {
+  width: 100%;
+  max-width: 420px;
+  display: grid;
+  gap: 20px;
+  padding: 28px 24px;
+  background: rgba(18, 22, 36, 0.85);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.form__title {
+  font-size: 1.6rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.form__lead {
+  margin-top: -12px;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  transition: color 0.2s;
+}
+
+/* O rótulo ganha cor quando algum filho do campo recebe foco */
+.field:focus-within .field__label {
+  color: var(--aqua);
+}
+
+.field__input {
+  width: 100%;
+  padding: 13px 14px;
+  font: inherit;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field__input::placeholder {
+  color: rgba(167, 176, 200, 0.7);
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--aqua);
+  box-shadow: 0 0 0 3px rgba(56, 225, 198, 0.2);
+}
+
+/* Campos inválidos: só depois de o usuário digitar (:not(:placeholder-shown)) */
+.field__input:not(:placeholder-shown):invalid {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.18);
+}
+
+.field__input:not(:placeholder-shown):valid {
+  border-color: var(--ok);
+}
+
+.field__error {
+  display: none;
+  color: var(--error);
+  font-size: 0.8rem;
+}
+
+.field__input:not(:placeholder-shown):invalid ~ .field__error {
+  display: block;
+}
+
+/* Checkbox personalizado: o input real fica escondido e o :checked pinta a caixa */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.check__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.check__box {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.check__box::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 11px;
+  border: solid #07110f;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.2s;
+}
+
+.check__input:checked + .check__box {
+  background: var(--aqua);
+  border-color: var(--aqua);
+}
+
+.check__input:checked + .check__box::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.check__input:focus-visible + .check__box {
+  outline: 3px solid var(--aqua);
+  outline-offset: 3px;
+}
+
+.form__submit {
+  width: 100%;
+}
+
+.form__foot {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.form__link {
+  color: var(--aqua);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.form__link:hover {
+  color: var(--pink);
+}
+
+/* ==========================================================
+   TABLET (a partir de 768px)
+   ========================================================== */
+@media (min-width: 768px) {
+  .hero {
+    padding-block: 104px 128px;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .section {
+    padding-block: 56px;
+  }
+
+  .posters {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .poster__title {
+    font-size: 1.15rem;
+  }
+
+  .plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .form {
+    padding: 36px 32px;
+  }
+}
+
+/* ==========================================================
+   DESKTOP (a partir de 1024px)
+   ========================================================== */
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+
+  /* Menu horizontal: o botão e o checkbox deixam de existir */
+  .topbar__bar {
+    min-height: 76px;
+    flex-wrap: nowrap;
+  }
+
+  .menu-toggle,
+  .menu-btn {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 0;
+  }
+
+  .nav__link {
+    padding: 8px 14px;
+  }
+
+  /* Sublinhado que cresce do centro ao passar o mouse */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 2px;
+    height: 2px;
+    background: var(--accent-grad);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav .btn {
+    margin: 0 0 0 12px;
+  }
+
+  .hero {
+    padding-block: 144px 168px;
+  }
+
+  .section {
+    padding-block: 72px;
+  }
+
+  .plan--popular {
+    transform: translateY(-12px);
+  }
+
+  .plan--popular:hover {
+    transform: translateY(-20px);
+  }
+
+  .footer__grid {
+    grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr));
+  }
+
+  .footer__brand {
+    grid-column: auto;
+  }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  .hero,
+  .plan--popular::before {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
+
+  .poster:hover,
+  .poster:focus-within {
+    transform: none;
+  }
+}

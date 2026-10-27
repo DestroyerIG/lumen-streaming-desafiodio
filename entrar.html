@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar · Lumen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+  <header class="topbar">
+    <div class="container topbar__bar">
+      <a class="logo" href="index.html" aria-label="Lumen, voltar para a página inicial">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__name">Lumen</span>
+      </a>
+      <a class="nav__link" href="index.html">Voltar ao início</a>
+    </div>
+  </header>
+
+  <main class="login">
+    <form class="form" action="#" onsubmit="return false">
+      <h1 class="form__title">Entre na sua conta</h1>
+      <p class="form__lead">Continue de onde você parou.</p>
+
+      <!-- Cada campo mostra o erro só depois de ser preenchido (:placeholder-shown) -->
+      <div class="field">
+        <label class="field__label" for="email">E-mail</label>
+        <input class="field__input" id="email" name="email" type="email"
+               placeholder="voce@exemplo.com" autocomplete="email" required>
+        <p class="field__error">Digite um e-mail válido, como voce@exemplo.com.</p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="senha">Senha</label>
+        <input class="field__input" id="senha" name="senha" type="password"
+               placeholder="Mínimo de 8 caracteres" minlength="8"
+               autocomplete="current-password" required>
+        <p class="field__error">A senha precisa ter pelo menos 8 caracteres.</p>
+      </div>
+
+      <label class="check">
+        <input class="check__input" type="checkbox" name="manter">
+        <span class="check__box" aria-hidden="true"></span>
+        <span class="check__text">Manter conectado neste dispositivo</span>
+      </label>
+
+      <button class="btn form__submit" type="submit">Entrar</button>
+
+      <p class="form__foot">Ainda não tem conta? <a class="form__link" href="index.html#planos">Veja os planos</a></p>
+    </form>
+  </main>
+
+</body>
+</html>

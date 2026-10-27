@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lumen: filmes e séries para maratonar, em qualquer tela.">
+  <title>Lumen · Filmes e séries para maratonar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Menu =====
+       O menu do celular abre com um checkbox + :checked (sem JavaScript). -->
+  <header class="topbar">
+    <div class="container topbar__bar">
+      <a class="logo" href="#inicio" aria-label="Lumen, página inicial">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__name">Lumen</span>
+      </a>
+
+      <input class="menu-toggle" type="checkbox" id="menu-toggle" aria-label="Abrir ou fechar o menu">
+      <label class="menu-btn" for="menu-toggle" aria-hidden="true">
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+      </label>
+
+      <nav class="nav" aria-label="Principal">
+        <a class="nav__link" href="#filmes">Filmes</a>
+        <a class="nav__link" href="#series">Séries</a>
+        <a class="nav__link" href="#planos">Planos</a>
+        <a class="btn btn--small" href="entrar.html">Entrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <!-- ===== Cabeçalho com gradiente animado ===== -->
+    <section class="hero">
+      <div class="container hero__content">
+        <h1 class="hero__title">A próxima maratona começa aqui.</h1>
+        <p class="hero__lead">
+          Filmes e séries sem anúncios, no celular, na TV ou no computador.
+          Comece de onde parou, em qualquer tela.
+        </p>
+        <div class="hero__actions">
+          <a class="btn" href="#planos">Ver planos</a>
+          <a class="btn btn--ghost" href="#filmes">Explorar o catálogo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Filmes ===== -->
+    <section class="section" id="filmes">
+      <div class="container">
+        <h2 class="section__title">Filmes em destaque</h2>
+        <div class="posters">
+
+          <article class="poster poster--1">
+            <a class="poster__link" href="#filmes" aria-label="Noite em Cobre, suspense">
+              <span class="poster__tag">Suspense</span>
+              <h3 class="poster__title">Noite em Cobre</h3>
+              <span class="poster__meta">2h 04 · 16 anos</span>
+            </a>
+          </article>
+
+          <article class="poster poster--2">
+            <a class="poster__link" href="#filmes" aria-label="O Último Farol, drama">
+              <span class="poster__tag">Drama</span>
+              <h3 class="poster__title">O Último Farol</h3>
+              <span class="poster__meta">1h 52 · 12 anos</span>
+            </a>
+          </article>
+
+          <article class="poster poster--3">
+            <a class="poster__link" href="#filmes" aria-label="Rota 66 Km, ação">
+              <span class="poster__tag">Ação</span>
+              <h3 class="poster__title">Rota 66 Km</h3>
+              <span class="poster__meta">1h 48 · 14 anos</span>
+            </a>
+          </article>
+
+          <article class="poster poster--4">
+            <a class="poster__link" href="#filmes" aria-label="Casa de Vidro, terror">
+              <span class="poster__tag">Terror</span>
+              <h3 class="poster__title">Casa de Vidro</h3>
+              <span class="poster__meta">1h 37 · 18 anos</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Séries ===== -->
+    <section class="section" id="series">
+      <div class="container">
+        <h2 class="section__title">Séries para maratonar</h2>
+        <div class="posters">
+
+          <article class="poster poster--5">
+            <a class="poster__link" href="#series" aria-label="Bairro Alto, drama">
+              <span class="poster__tag">Drama</span>
+              <h3 class="poster__title">Bairro Alto</h3>
+              <span class="poster__meta">3 temporadas · 14 anos</span>
+            </a>
+          </article>
+
+          <article class="poster poster--6">
+            <a class="poster__link" href="#series" aria-label="Código Zero, tecnologia">
+              <span class="poster__tag">Tecnologia</span>
+              <h3 class="poster__title">Código Zero</h3>
+              <span class="poster__meta">2 temporadas · 12 anos</span>
+            </a>
+          </article>
+
+          <article class="poster poster--7">
+            <a class="poster__link" href="#series" aria-label="Mesa para Três, comédia">
+              <span class="poster__tag">Comédia</span>
+              <h3 class="poster__title">Mesa para Três</h3>
+              <span class="poster__meta">4 temporadas · Livre</span>
+            </a>
+          </article>
+
+          <article class="poster poster--8">
+            <a class="poster__link" href="#series" aria-label="Fronteira, aventura">
+              <span class="poster__tag">Aventura</span>
+              <h3 class="poster__title">Fronteira</h3>
+              <span class="poster__meta">1 temporada · 14 anos</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Planos ===== -->
+    <section class="section" id="planos">
+      <div class="container">
+        <h2 class="section__title">Escolha o seu plano</h2>
+        <p class="section__lead">Sem fidelidade. Você cancela quando quiser.</p>
+
+        <div class="plans">
+
+          <article class="plan">
+            <h3 class="plan__name">Básico</h3>
+            <p class="plan__price">R$ 19,90<span>/mês</span></p>
+            <ul class="plan__list">
+              <li>1 tela por vez</li>
+              <li>Qualidade HD</li>
+              <li>Sem anúncios</li>
+            </ul>
+            <a class="btn btn--ghost" href="entrar.html">Assinar Básico</a>
+          </article>
+
+          <article class="plan plan--popular">
+            <h3 class="plan__name">Padrão</h3>
+            <p class="plan__price">R$ 29,90<span>/mês</span></p>
+            <ul class="plan__list">
+              <li>2 telas por vez</li>
+              <li>Qualidade Full HD</li>
+              <li>Sem anúncios</li>
+              <li>Downloads no celular</li>
+            </ul>
+            <a class="btn" href="entrar.html">Assinar Padrão</a>
+          </article>
+
+          <article class="plan">
+            <h3 class="plan__name">Premium</h3>
+            <p class="plan__price">R$ 44,90<span>/mês</span></p>
+            <ul class="plan__list">
+              <li>4 telas por vez</li>
+              <li>Qualidade 4K</li>
+              <li>Sem anúncios</li>
+              <li>Downloads ilimitados</li>
+            </ul>
+            <a class="btn btn--ghost" href="entrar.html">Assinar Premium</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Rodapé ===== -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="logo" href="#inicio" aria-label="Lumen, voltar ao topo">
+          <span class="logo__mark" aria-hidden="true"></span>
+          <span class="logo__name">Lumen</span>
+        </a>
+        <p class="footer__note">Projeto fictício criado para o desafio final da trilha de CSS da DIO. Os títulos e preços são inventados.</p>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title">Catálogo</h3>
+        <a href="#filmes">Filmes</a>
+        <a href="#series">Séries</a>
+        <a href="#planos">Planos</a>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title">Conta</h3>
+        <a href="entrar.html">Entrar</a>
+        <a href="entrar.html">Criar conta</a>
+        <a href="#inicio">Central de ajuda</a>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title">Legal</h3>
+        <a href="#inicio">Privacidade</a>
+        <a href="#inicio">Termos de uso</a>
+        <a href="#inicio">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
